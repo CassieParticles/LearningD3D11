@@ -35,6 +35,11 @@ double TimeManager::FPS()
 	return frameCount / elapsedTime;
 }
 
+double TimeManager::MSPF()
+{
+	return 1000.0 / FPS();
+}
+
 double TimeManager::ElapsedTime()
 {
 	return elapsedTime;

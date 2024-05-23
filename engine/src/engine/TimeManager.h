@@ -12,6 +12,7 @@ public:
 
 	double deltaTime();
 	double FPS();
+	double MSPF();
 	double ElapsedTime();
 protected:
 	Window* window;

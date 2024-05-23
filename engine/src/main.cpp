@@ -24,6 +24,7 @@ int main()
 	}
 
 	std::cout << "Average fps = " << timeManager.FPS()<<'\n';
+	std::cout << "Average mspf = " << timeManager.MSPF()<<'\n';
 
 	return 0;
 }
