@@ -3,6 +3,8 @@
 #include <engine/GameObject.h>
 #include <engine/D3DPipeline.h>
 
+class TimeManager;
+
 
 class GameScene :public BaseScene
 {
@@ -13,8 +15,8 @@ public:
 	void open() override;
 	void close() override;
 
-	void update(float deltaTime);
-	void render(float deltaTime);
+	void update(TimeManager* timeManager);
+	void render(TimeManager* timeManager);
 protected:
 	float vertices[9] = 
 	{

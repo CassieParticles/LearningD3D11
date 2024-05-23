@@ -10,7 +10,7 @@ struct VSOutput
     float3 colour : COLOR0;
 };
 
-cbuffer transformation
+cbuffer transformation : register(b2)
 {
     float4x4 transformationMatrix;
 };

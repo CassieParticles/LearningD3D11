@@ -1,0 +1,25 @@
+#pragma once
+
+#include <engine/Window.h>
+
+class TimeManager
+{
+public:
+	TimeManager(Window* window = Window::Instance());
+	
+	void Start();
+	void Tick();
+
+	double deltaTime();
+	double FPS();
+	double ElapsedTime();
+protected:
+	Window* window;
+
+	//All times are in ms
+	double previousTime;	//Time last frame
+	double currentTime;		//Time this frame
+	double elapsedTime;		//Time since start was called
+
+	int frameCount;	//Number of frames since start
+};

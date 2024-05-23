@@ -39,4 +39,5 @@ protected:
 	ComPtr<ID3D11Buffer> indexBuffer{};
 	int indexOffset{};
 
+
 };

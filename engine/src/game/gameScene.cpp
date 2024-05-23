@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <engine/TimeManager.h>
 #include <engine/VertexLayout.h>
 
 GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour),pipeline{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
@@ -35,9 +36,9 @@ void GameScene::close()
 {
 }
 
-void GameScene::update(float deltaTime)
+void GameScene::update(TimeManager* timeManager)
 {
-	sumTime += deltaTime;
+	sumTime += timeManager->deltaTime();
 	window->pollEvents();
 
 	mesh.position.x = sin(sumTime);
@@ -45,7 +46,7 @@ void GameScene::update(float deltaTime)
 	mesh.updateTransformationMatrix();
 }
 
-void GameScene::render(float deltaTime)
+void GameScene::render(TimeManager* timeManager)
 {
 	beginDraw();
 

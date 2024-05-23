@@ -10,6 +10,7 @@ list(APPEND Engine "engine/src/engine/Mesh.cpp")
 list(APPEND Engine "engine/src/engine/VertexLayout.cpp")
 list(APPEND Engine "engine/src/engine/GameObject.cpp")
 list(APPEND Engine "engine/src/engine/CBufferObject.cpp")
+list(APPEND Engine "engine/src/engine/TimeManager.cpp")
 
 list(APPEND Game "engine/src/game/gameScene.cpp")
 

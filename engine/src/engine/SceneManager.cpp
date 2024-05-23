@@ -2,14 +2,14 @@
 
 #include <engine/BaseScene.h>
 
-void SceneManager::update(float deltaTime)
+void SceneManager::update(TimeManager* timeManager)
 {
-	scenes.at(currentScene)->update(deltaTime);
+	scenes.at(currentScene)->update(timeManager);
 }
 
-void SceneManager::render(float deltaTime)
+void SceneManager::render(TimeManager* timeManager)
 {
-	scenes.at(currentScene)->render(deltaTime);
+	scenes.at(currentScene)->render(timeManager);
 }
 
 void SceneManager::addScene(BaseScene* scene)

@@ -7,7 +7,7 @@ GameObject::GameObject(DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotation, D
 	//addConstantBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX));
 	//transformationCBuffer = constantBuffers[0];
 
-	transformationCBuffer.addBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX), Shaders::VERTEX_SHADER | Shaders::PIXEL_SHADER, 0);
+	transformationCBuffer.addBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX), Shaders::VERTEX_SHADER | Shaders::PIXEL_SHADER, 2);
 }
 
 GameObject::~GameObject()

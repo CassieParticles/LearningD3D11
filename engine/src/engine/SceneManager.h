@@ -4,12 +4,13 @@
 #include <vector>
 
 class BaseScene;
+class TimeManager;
 
 class SceneManager
 {
 public:
-	void update(float deltaTime);
-	void render(float deltaTime);
+	void update(TimeManager* timeManager);
+	void render(TimeManager* timeManager);
 
 	void addScene(BaseScene* scene);
 	void changeScene(int newScene);
