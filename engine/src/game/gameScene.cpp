@@ -12,7 +12,6 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	mesh.addIndexBuffer(indices, false, sizeof(indices), 0);
 
 	
-	
 	pipeline.addVertexShader(L"shaders/vertex.hlsl");
 	pipeline.addFragmentShader(L"shaders/fragment.hlsl");
 
@@ -42,8 +41,6 @@ void GameScene::update(float deltaTime)
 	window->pollEvents();
 
 	mesh.position.x = sin(sumTime);
-
-	mesh.rotation.x = sin(sumTime) * 2 * 3.14159f;
 
 	mesh.updateTransformationMatrix();
 }

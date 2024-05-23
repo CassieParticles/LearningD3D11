@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 #include <vector>
 #include <d3d11.h>
 #include <dxgi1_3.h>
@@ -24,11 +26,8 @@ public:
 	void addIndexBuffer(D3D11_SUBRESOURCE_DATA* data, bool dynamic, int size, int indexOffset);
 	void addIndexBuffer(int* data, bool dynamic, int size, int indexOffset);
 
-	void addConstantBuffer(ComPtr<ID3D11Buffer> constantBuffer);
-	void addConstantBuffer(D3D11_SUBRESOURCE_DATA* data, bool dynamic, int size);
-	void addConstantBuffer(void* data, bool dynamic, int size);
 
-	void setBuffers();
+	virtual void setBuffers();
 protected:
 	//Vertex buffer data
 	ComPtr<ID3D11Buffer> vertexBuffers[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT]{};
@@ -40,7 +39,4 @@ protected:
 	ComPtr<ID3D11Buffer> indexBuffer{};
 	int indexOffset{};
 
-	//Constant buffers used in rendering this mesh
-	ComPtr<ID3D11Buffer> constantBuffers[D3D11_COMMONSHADER_CONSTANT_BUFFER_HW_SLOT_COUNT]{};
-	int constantBufferCount{};
 };

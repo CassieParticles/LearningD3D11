@@ -3,6 +3,8 @@
 
 #include <DirectXMath.h>
 
+#include <engine/CBufferObject.h>
+
 class GameObject :public Mesh
 {
 public:
@@ -12,6 +14,8 @@ public:
 	//Update buffer for rendering, do this at end of moving object
 	void updateTransformationMatrix();
 
+	void setBuffers() override;
+
 	DirectX::XMFLOAT3 position;
 	DirectX::XMFLOAT3 rotation;
 	DirectX::XMFLOAT3 scale;
@@ -19,5 +23,6 @@ protected:
 
 	DirectX::XMMATRIX getTransformationMatrix();
 
-	ComPtr<ID3D11Buffer> transformationCBuffer;
+	//ComPtr<ID3D11Buffer> transformationCBuffer;
+	CBufferObject transformationCBuffer;
 };

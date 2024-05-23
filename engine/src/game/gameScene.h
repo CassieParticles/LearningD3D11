@@ -3,6 +3,7 @@
 #include <engine/GameObject.h>
 #include <engine/D3DPipeline.h>
 
+
 class GameScene :public BaseScene
 {
 public:
