@@ -24,10 +24,6 @@ bool Window::windowShouldClose()
 	return glfwWindowShouldClose(window);
 }
 
-void Window::pollEvents()
-{
-	glfwPollEvents();
-}
 
 void Window::clearBackBuffer(DirectX::XMFLOAT4 colour)
 {

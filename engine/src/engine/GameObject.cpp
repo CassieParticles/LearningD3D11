@@ -7,7 +7,8 @@ GameObject::GameObject(DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotation, D
 	//addConstantBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX));
 	//transformationCBuffer = constantBuffers[0];
 
-	transformationCBuffer.addBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX), Shaders::VERTEX_SHADER | Shaders::PIXEL_SHADER, 2);
+	//VS register 2 is used consistently for mesh transformations
+	transformationCBuffer.addBuffer((D3D11_SUBRESOURCE_DATA*)nullptr, true, sizeof(DirectX::XMMATRIX), Shaders::VERTEX_SHADER, 2);
 }
 
 GameObject::~GameObject()
@@ -16,7 +17,7 @@ GameObject::~GameObject()
 
 void GameObject::updateTransformationMatrix()
 {
-	DirectX::XMMATRIX mat = getTransformationMatrix();
+	DirectX::XMMATRIX mat = (getTransformationMatrix());
 
 	D3D11_MAPPED_SUBRESOURCE transformationMap{};
 	Window* window = Window::Instance();

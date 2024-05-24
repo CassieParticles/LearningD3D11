@@ -10,7 +10,7 @@ public:
 	void Start();
 	void Tick();
 
-	double deltaTime();
+	double DeltaTime();
 	double FPS();
 	double MSPF();
 	double ElapsedTime();

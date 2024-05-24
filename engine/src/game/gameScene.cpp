@@ -22,6 +22,10 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	layout.addVertexComponent("COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_VERTEX_DATA, 0);
 
 	pipeline.addLayoutDescription(layout);
+
+	camera.createProjectionMatrixFOV(90 * 3.14159 * (1.f / 180), window->getAspectRatio(), 0.1f, 1000.f);
+	//camera.setRotation(DirectX::XMFLOAT3(0, 3.1415f, 0));
+	mesh.position.z = 5.0f;
 }
 
 GameScene::~GameScene()
@@ -38,12 +42,15 @@ void GameScene::close()
 
 void GameScene::update(TimeManager* timeManager)
 {
-	sumTime += timeManager->deltaTime();
-	window->pollEvents();
 
-	mesh.position.x = sin(sumTime);
+	//mesh.position.x = sin(timeManager->ElapsedTime());
+
+	//camera.setRotation(DirectX::XMFLOAT3(0, 3.14159f, 0));
+	//camera.setRotation(DirectX::XMFLOAT3(0, timeManager->ElapsedTime() * 3.14159f, 0));
+	camera.setPosition(DirectX::XMFLOAT3(sin(timeManager->ElapsedTime()), 0, cos(timeManager->ElapsedTime())));
 
 	mesh.updateTransformationMatrix();
+	camera.updateCameraBuffer();
 }
 
 void GameScene::render(TimeManager* timeManager)

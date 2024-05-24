@@ -19,9 +19,8 @@ public:
 	static Window* Instance();
 
 	bool windowShouldClose();
-	void pollEvents();
 
-	const GLFWwindow* getWindow() { return window; }
+	GLFWwindow* getWindow() { return window; }
 
 	const ComPtr<ID3D11Device>& getDevice() { return device; }
 	const ComPtr<ID3D11DeviceContext>& getDeviceContext() { return deviceContext; }
@@ -36,6 +35,7 @@ public:
 	const int getWidth() { return width; }
 	const int getHeight() { return height; }
 	const DirectX::XMFLOAT2 getSize() { return DirectX::XMFLOAT2( width,height ); }
+	const float getAspectRatio() { return width / height; }
 
 	void clearBackBuffer(DirectX::XMFLOAT4 colour);
 	void presentBackBuffer();

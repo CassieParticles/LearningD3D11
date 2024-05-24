@@ -10,6 +10,11 @@ struct VSOutput
     float3 colour : COLOR0;
 };
 
+cbuffer camera : register(b1)
+{
+    float4x4 cameraMatrix;
+}
+
 cbuffer transformation : register(b2)
 {
     float4x4 transformationMatrix;
@@ -17,6 +22,8 @@ cbuffer transformation : register(b2)
 
 VSOutput Main(VSInput input)
 {
-    VSOutput output = { mul(transformationMatrix,float4(input.position, 1.0)), float3(input.colour) };
+    float4x4 finalMatrix = mul(cameraMatrix,transformationMatrix);
+
+    VSOutput output = { mul(finalMatrix, float4(input.position, 1.0)), float3(input.colour) };
     return output;
 }

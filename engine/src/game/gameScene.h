@@ -2,6 +2,7 @@
 #include <engine/BaseScene.h>
 #include <engine/GameObject.h>
 #include <engine/D3DPipeline.h>
+#include <engine/Camera.h>
 
 class TimeManager;
 
@@ -20,9 +21,9 @@ public:
 protected:
 	float vertices[9] = 
 	{
-		0.f,0.5f,.5f,
-		-0.5f,-0.5f,.5f,
-		0.5f,-0.5f,.5f
+		0.f,0.5f,.0f,
+		-0.5f,-0.5f,.0f,
+		0.5f,-0.5f,.0f
 	};
 
 	float colours[9] =
@@ -37,8 +38,7 @@ protected:
 		0,2,1
 	};
 
+	Camera camera;
 	GameObject mesh;
 	D3DPipeline pipeline;
-
-	float sumTime{};
 };

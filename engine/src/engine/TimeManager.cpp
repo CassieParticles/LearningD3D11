@@ -5,27 +5,27 @@
 #include <engine/Window.h>
 
 
-TimeManager::TimeManager(Window* window) :window{ window },previousTime {}, currentTime{}, elapsedTime{}
+TimeManager::TimeManager(Window* window) :window{ window }, previousTime{}, currentTime{}, elapsedTime{}, frameCount{ 0 }
 {
 }
 
 void TimeManager::Start()
 {
 	elapsedTime = 0;
+	frameCount = 0;
 	previousTime = glfwGetTime();
 	currentTime = glfwGetTime();
-	frameCount = 0;
 }
 
 void TimeManager::Tick()
 {
 	previousTime = currentTime;
 	currentTime = glfwGetTime();
-	elapsedTime += deltaTime();
+	elapsedTime += DeltaTime();
 	++frameCount;
 }
 
-double TimeManager::deltaTime()
+double TimeManager::DeltaTime()
 {
 	return currentTime - previousTime;
 }
