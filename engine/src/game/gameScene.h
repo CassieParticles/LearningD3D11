@@ -2,7 +2,7 @@
 #include <engine/BaseScene.h>
 #include <engine/GameObject.h>
 #include <engine/D3DPipeline.h>
-#include <engine/Camera.h>
+#include <engine/Controller.h>
 
 class TimeManager;
 
@@ -38,7 +38,7 @@ protected:
 		0,2,1
 	};
 
-	Camera camera;
+	Controller player;
 	GameObject mesh;
 	D3DPipeline pipeline;
 };

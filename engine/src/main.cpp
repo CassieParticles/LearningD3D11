@@ -26,9 +26,11 @@ int main()
 		input->update();
 		sceneManager.update(&timeManager);
 		sceneManager.render(&timeManager);
-		if (input->getKeyPressed(GLFW_KEY_A))
+
+		if (timeManager.DeltaTime() > 0.01)
 		{
-			std::cout << "Key A pressed\n";
+			std::cout << "Frames dropped below 100\n";
+			std::cout << "Frame time: " << timeManager.DeltaTime()<<'\n';
 		}
 	}
 

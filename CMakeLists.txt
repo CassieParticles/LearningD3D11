@@ -2,6 +2,8 @@
 
 project (FinalPractice VERSION 1.0)
 
+#Skibidi project
+
 list(APPEND Engine "engine/src/engine/Window.cpp")
 list(APPEND Engine "engine/src/engine/BaseScene.cpp")
 list(APPEND Engine "engine/src/engine/SceneManager.cpp")
@@ -13,6 +15,7 @@ list(APPEND Engine "engine/src/engine/CBufferObject.cpp")
 list(APPEND Engine "engine/src/engine/TimeManager.cpp")
 list(APPEND Engine "engine/src/engine/Input.cpp")
 list(APPEND Engine "engine/src/engine/Camera.cpp")
+list(APPEND Engine "engine/src/engine/Controller.cpp")
 
 list(APPEND Game "engine/src/game/gameScene.cpp")
 
