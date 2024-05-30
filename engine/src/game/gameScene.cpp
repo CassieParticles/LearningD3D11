@@ -26,25 +26,9 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	player.createProjectionMatrixFOV(90 * 3.14159 * (1.f / 180), window->getAspectRatio(), 0.1f, 1000.f);
 	mesh.position.z = 15.0f;
 
-	D3D11_RASTERIZER_DESC desc
-	{
-		D3D11_FILL_SOLID,
-		D3D11_CULL_NONE,
-		false,
-		0,
-		0,
-		0,
-		true,
-		false,
-		false,
-		false
-	};
-	
-	HRESULT err = window->getDevice()->CreateRasterizerState(&desc, &rasterizerState);
-	if (FAILED(err))
-	{
-		std::cerr << "Failed to create rasterizer state\n";
-	}
+	rasterizerState.setCullMode(D3D11_CULL_NONE);
+	rasterizerState.createSamplerState();
+	rasterizerState.use();
 }
 
 GameScene::~GameScene()
@@ -79,8 +63,6 @@ void GameScene::render(TimeManager* timeManager)
 
 	pipeline.bindShaders();
 	mesh.setBuffers();
-
-	window->getDeviceContext()->RSSetState(rasterizerState.Get());
 
 	window->getDeviceContext()->DrawIndexed(3, 0, 0);
 
