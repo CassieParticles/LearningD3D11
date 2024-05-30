@@ -1,9 +1,9 @@
 #pragma once
-#include <engine/Mesh.h>
+#include <engine/D3DObjects/Mesh.h>
 
 #include <DirectXMath.h>
 
-#include <engine/CBufferObject.h>
+#include <engine/D3DObjects/CBufferObject.h>
 
 class GameObject :public Mesh
 {

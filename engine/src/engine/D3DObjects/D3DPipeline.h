@@ -4,7 +4,7 @@
 #include <string>
 #include <wrl.h>
 
-#include <engine/VertexLayout.h>
+#include <engine/D3DObjects/VertexLayout.h>
 
 class D3DPipeline
 {

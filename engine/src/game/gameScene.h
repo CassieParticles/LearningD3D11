@@ -1,8 +1,8 @@
 #pragma once
 #include <engine/BaseScene.h>
-#include <engine/GameObject.h>
-#include <engine/D3DPipeline.h>
 #include <engine/Controller.h>
+#include <engine/D3DObjects/GameObject.h>
+#include <engine/D3DObjects/D3DPipeline.h>
 
 class TimeManager;
 
@@ -41,4 +41,6 @@ protected:
 	Controller player;
 	GameObject mesh;
 	D3DPipeline pipeline;
+
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerState;
 };

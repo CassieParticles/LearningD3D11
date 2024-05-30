@@ -3,7 +3,7 @@
 #include <DirectXMath.h>
 
 #include <engine/Window.h>
-#include <engine/CBufferObject.h>
+#include <engine/D3DObjects/CBufferObject.h>
 
 class Camera
 {

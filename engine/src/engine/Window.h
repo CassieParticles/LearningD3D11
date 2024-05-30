@@ -57,6 +57,8 @@ protected:
 	ComPtr<ID3D11Texture2D> backBuffer;
 	ComPtr<ID3D11Texture2D> depthBuffer;
 
+	ComPtr<ID3D11DepthStencilState> depthStencilState;
+
 	ComPtr<ID3D11RenderTargetView> renderTargetView;
 	ComPtr<ID3D11DepthStencilView> depthStencilView;
 

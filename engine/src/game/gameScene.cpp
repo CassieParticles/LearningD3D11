@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include <engine/TimeManager.h>
-#include <engine/VertexLayout.h>
+#include <engine/D3DObjects/VertexLayout.h>
 
 GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour),pipeline{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
 {
@@ -25,6 +25,26 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 
 	player.createProjectionMatrixFOV(90 * 3.14159 * (1.f / 180), window->getAspectRatio(), 0.1f, 1000.f);
 	mesh.position.z = 15.0f;
+
+	D3D11_RASTERIZER_DESC desc
+	{
+		D3D11_FILL_SOLID,
+		D3D11_CULL_NONE,
+		false,
+		0,
+		0,
+		0,
+		true,
+		false,
+		false,
+		false
+	};
+	
+	HRESULT err = window->getDevice()->CreateRasterizerState(&desc, &rasterizerState);
+	if (FAILED(err))
+	{
+		std::cerr << "Failed to create rasterizer state\n";
+	}
 }
 
 GameScene::~GameScene()
@@ -47,7 +67,7 @@ void GameScene::update(TimeManager* timeManager)
 	//camera.setRotation(DirectX::XMFLOAT3(0, 3.14159f, 0));
 	//camera.setRotation(DirectX::XMFLOAT3(0, timeManager->ElapsedTime() * 3.14159f, 0));
 	//camera.setPosition(DirectX::XMFLOAT3(sin(timeManager->ElapsedTime()), 0, cos(timeManager->ElapsedTime())));
-	//player.update(timeManager);
+	player.update(timeManager);
 
 	mesh.updateTransformationMatrix();
 	player.updateCameraBuffer();
@@ -59,6 +79,8 @@ void GameScene::render(TimeManager* timeManager)
 
 	pipeline.bindShaders();
 	mesh.setBuffers();
+
+	window->getDeviceContext()->RSSetState(rasterizerState.Get());
 
 	window->getDeviceContext()->DrawIndexed(3, 0, 0);
 

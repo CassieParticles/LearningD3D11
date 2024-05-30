@@ -1,5 +1,5 @@
 #include "CBufferObject.h"
-#include "Window.h"
+#include <engine/Window.h>
 #include <iostream>
 
 CBufferObject::CBufferObject()

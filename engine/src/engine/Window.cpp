@@ -180,6 +180,7 @@ bool Window::createWindow(const std::string& windowTitle, int windowWidth, int w
 	if (FAILED(errorCode))
 	{
 		std::cerr << "Failed to create depth stencil view\n";
+		return false;
 	}
 
 	return true;
