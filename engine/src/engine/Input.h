@@ -1,5 +1,7 @@
 #pragma once
 
+#include <DirectXMath.h> 
+
 class Window;
 
 class Input
@@ -16,6 +18,11 @@ public:
 	bool getKeyPressed(int key);
 	//Key was released this frame
 	bool getKeyReleased(int key);
+
+	void enableCentredCursor() { cursorCentred = true; }
+	void disableCentreCursor() { cursorCentred = false; }
+
+	DirectX::XMFLOAT2 getMousePosition() { return mousePosition; }
 protected:
 	Input();
 	~Input();
@@ -24,6 +31,9 @@ protected:
 
 	bool* keyStatesCurrent;
 	bool* keyStatesPrev;
+
+	DirectX::XMFLOAT2 mousePosition;
+	bool cursorCentred;
 
 	Window* window;
 };

@@ -1,5 +1,7 @@
 #include "Controller.h"
 
+#include <iostream>
+
 #include <glfw3.h>
 
 #include <engine/TimeManager.h>
@@ -34,19 +36,19 @@ void Controller::update(TimeManager* timeManager)
 
 	if (input->getKeyDown(controls.forward))
 	{
-		translation = DirectX::XMVectorAdd(translation, { -sinAngle,0,cosAngle });
+		translation = DirectX::XMVectorAdd(translation, { sinAngle,0,cosAngle });
 	}
 	if (input->getKeyDown(controls.left))
 	{
-		translation = DirectX::XMVectorAdd(translation, { -cosAngle,0,-sinAngle });
+		translation = DirectX::XMVectorAdd(translation, { -cosAngle,0,sinAngle });
 	}
 	if (input->getKeyDown(controls.right))
 	{
-		translation = DirectX::XMVectorAdd(translation, { cosAngle,0,sinAngle });
+		translation = DirectX::XMVectorAdd(translation, { cosAngle,0,-sinAngle });
 	}
 	if (input->getKeyDown(controls.backward))
 	{
-		translation = DirectX::XMVectorAdd(translation, { sinAngle,0,-cosAngle });
+		translation = DirectX::XMVectorAdd(translation, { -sinAngle,0,-cosAngle });
 	}
 
 	if (input->getKeyDown(controls.up))
@@ -59,9 +61,22 @@ void Controller::update(TimeManager* timeManager)
 	}
 	float deltaTime = timeManager->DeltaTime();
 
-	translation = DirectX::XMVectorScale(translation, deltaTime);
+	translation = DirectX::XMVectorScale(translation, deltaTime * 3.f);
 
 	positionStore = DirectX::XMVectorAdd(positionStore, translation);
 
 	DirectX::XMStoreFloat3(&position, positionStore);
+
+	//Rotate the camera based on the mouse
+	DirectX::XMFLOAT2 mousePos = input->getMousePosition();
+	DirectX::XMVECTOR deltaRotation = DirectX::XMLoadFloat2(&mousePos);
+	deltaRotation = DirectX::XMVectorScale(deltaRotation, timeManager->DeltaTime());
+	
+	DirectX::XMVECTOR rotationVector = DirectX::XMLoadFloat3(&rotation);
+
+	deltaRotation = DirectX::XMVectorSwizzle(deltaRotation, 1, 0, 2, 2);
+	deltaRotation = DirectX::XMVectorMultiply(deltaRotation, DirectX::XMVectorSet(-1, 1, 1, 1));
+	rotationVector = DirectX::XMVectorAdd(deltaRotation, rotationVector);
+
+	DirectX::XMStoreFloat3(&rotation, rotationVector);
 }

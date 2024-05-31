@@ -32,6 +32,12 @@ int main()
 			std::cout << "Frames dropped below 100\n";
 			std::cout << "Frame time: " << timeManager.DeltaTime()<<'\n';
 		}
+
+		if (input->getKeyDown(GLFW_KEY_ESCAPE))
+		{
+			glfwSetWindowShouldClose(window->getWindow(),true);
+	
+		}
 	}
 
 	std::cout << "Average fps = " << timeManager.FPS()<<'\n';

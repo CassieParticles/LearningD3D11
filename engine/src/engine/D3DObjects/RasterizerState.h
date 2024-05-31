@@ -23,7 +23,7 @@ public:
 	void setMultisampleEnable(bool MultisampleEnable) { desc.MultisampleEnable = MultisampleEnable; }
 	void setAntialiasedLineEnable(bool AntialiasedLineEnable) { desc.AntialiasedLineEnable = AntialiasedLineEnable; }
 
-	bool createSamplerState();
+	bool createRasterizerState();
 
 	void use();
 protected:

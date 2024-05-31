@@ -39,11 +39,16 @@ RasterizerState::RasterizerState(D3D11_FILL_MODE fillMode, D3D11_CULL_MODE cullM
 	};
 
 	//Since parameters already set, craete sampler state now
-	createSamplerState();
+	createRasterizerState();
 }
 
-bool RasterizerState::createSamplerState()
+bool RasterizerState::createRasterizerState()
 {
+	if (usable)
+	{
+		std::cerr << "Rasterizer state already created\n";
+		return true;
+	}
 	HRESULT err = Window::Instance()->getDevice()->CreateRasterizerState(&desc, &rasterizerState);
 	if (FAILED(err))
 	{

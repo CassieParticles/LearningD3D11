@@ -4,6 +4,7 @@
 
 #include <engine/TimeManager.h>
 #include <engine/D3DObjects/VertexLayout.h>
+#include <engine/Input.h>
 
 GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour),pipeline{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
 {
@@ -27,8 +28,10 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	mesh.position.z = 15.0f;
 
 	rasterizerState.setCullMode(D3D11_CULL_NONE);
-	rasterizerState.createSamplerState();
+	rasterizerState.createRasterizerState();
 	rasterizerState.use();
+	
+	Input::Instance()->enableCentredCursor();
 }
 
 GameScene::~GameScene()
@@ -48,9 +51,6 @@ void GameScene::update(TimeManager* timeManager)
 
 	mesh.rotation.y = timeManager->ElapsedTime();
 
-	//camera.setRotation(DirectX::XMFLOAT3(0, 3.14159f, 0));
-	//camera.setRotation(DirectX::XMFLOAT3(0, timeManager->ElapsedTime() * 3.14159f, 0));
-	//camera.setPosition(DirectX::XMFLOAT3(sin(timeManager->ElapsedTime()), 0, cos(timeManager->ElapsedTime())));
 	player.update(timeManager);
 
 	mesh.updateTransformationMatrix();
