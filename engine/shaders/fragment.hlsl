@@ -1,8 +1,13 @@
+SamplerState linearsampler : register(s0);
+Texture2D ColourTexture : register(t0);
+
 struct PSInput
 {
     float4 position : SV_Position;
-    float3 colour : COLOR0;
+    float2 uv : UV0;
 };
+
+
 
 struct PSOutput
 {
@@ -11,6 +16,7 @@ struct PSOutput
 
 PSOutput Main(PSInput input)
 {
-    PSOutput output = { float4(input.colour, 1) };
+    float3 colour = ColourTexture.Sample(linearsampler, input.uv).xyz;
+    PSOutput output = { float4(colour, 1) };
     return output;
 }

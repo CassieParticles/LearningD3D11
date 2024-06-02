@@ -7,7 +7,7 @@ struct VSInput
 struct VSOutput
 {
     float4 position : SV_Position;
-    float3 colour : COLOR0;
+    float2 uv : UV0;
 };
 
 cbuffer camera : register(b1)
@@ -24,6 +24,6 @@ VSOutput Main(VSInput input)
 {
     float4x4 finalMatrix = mul(cameraMatrix,transformationMatrix);
 
-    VSOutput output = { mul(finalMatrix, float4(input.position, 1.0)), float3(input.colour) };
+    VSOutput output = { mul(finalMatrix, float4(input.position, 1.0)), float2(input.colour.xy) };
     return output;
 }

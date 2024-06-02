@@ -5,42 +5,6 @@
 
 #include <engine/Window.h>
 
-//
-//D3DPipeline::D3DPipeline(const std::wstring& vertexShaderPath, const std::wstring& fragmentShaderPath, D3D_PRIMITIVE_TOPOLOGY primitiveType, D3D11_INPUT_ELEMENT_DESC* layoutDescriptions, int layoutDescriptionCount):primitiveType{primitiveType}
-//{
-//	//Compile shaders
-//	Window* window = Window::Instance();
-//	if (compileShader(vertexShaderPath, VSByteCode, "vs_5_0"))
-//	{
-//		if (FAILED(window->getDevice()->CreateVertexShader(VSByteCode->GetBufferPointer(), VSByteCode->GetBufferSize(), nullptr, &vertexShader)))
-//		{
-//			std::cerr << "Failed to create vertex shader\n";
-//			return;
-//		}
-//	}
-//
-//	ComPtr<ID3DBlob> PSByteCode = nullptr;
-//	if (compileShader(fragmentShaderPath, PSByteCode, "ps_5_0"))
-//	{
-//		if (FAILED(window->getDevice()->CreatePixelShader(PSByteCode->GetBufferPointer(), PSByteCode->GetBufferSize(), nullptr, &pixelShader)))
-//		{
-//			std::cerr << "Failed to create pixel shader\n";
-//			return;
-//		}
-//	}
-//
-//
-//	//Create input layout
-//	HRESULT errorCode = window->getDevice()->CreateInputLayout(layoutDescriptions, layoutDescriptionCount, VSByteCode->GetBufferPointer(), VSByteCode->GetBufferSize(), &inputLayout);
-//	if (FAILED(errorCode))
-//	{
-//		std::cerr << "Failed to create input layout\n";
-//		return;
-//	}
-//}
-
-
-
 D3DPipeline::D3DPipeline(D3D_PRIMITIVE_TOPOLOGY primitiveType):usable{true},primitiveType{primitiveType}
 {
 	

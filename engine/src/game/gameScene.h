@@ -29,9 +29,9 @@ protected:
 
 	float colours[9] =
 	{
-		1,0,0,
-		0,1,0,
-		0,0,1
+		.5f,1.f,0,
+		0.f,0.f,0,
+		1.f,0.f,0
 	};
 
 	int indices[3] =
@@ -39,8 +39,14 @@ protected:
 		0,2,1
 	};
 
+	float* textureData;
+
 	Controller player;
 	GameObject mesh;
 	D3DPipeline pipeline;
 	RasterizerState rasterizerState;
+
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> SRV;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler;
 };
