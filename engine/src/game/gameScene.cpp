@@ -82,21 +82,10 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 		std::cerr << "Failed to create SRV\n";
 	}
 
-	D3D11_SAMPLER_DESC samplerDesc{};
-	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-	samplerDesc.MipLODBias = 0;
-	samplerDesc.MaxAnisotropy = 1;
-	samplerDesc.ComparisonFunc = D3D11_COMPARISON_EQUAL;
+	sampler.setStages(Shaders::PIXEL_SHADER);
+	sampler.setSamplerRegister(0);
 
-	errorCode = window->getDevice()->CreateSamplerState(&samplerDesc, &sampler);
-
-	if (FAILED(errorCode))
-	{
-		std::cerr << "Failed to create sampler\n";
-	}
+	sampler.createTextureSampler();
 }
 
 GameScene::~GameScene()
@@ -130,7 +119,8 @@ void GameScene::render(TimeManager* timeManager)
 	mesh.setBuffers();
 
 	window->getDeviceContext()->PSSetShaderResources(0, 1, SRV.GetAddressOf());
-	window->getDeviceContext()->PSSetSamplers(0,1,sampler.GetAddressOf());
+	//window->getDeviceContext()->PSSetSamplers(0,1,oSampler.GetAddressOf());
+	sampler.use();
 
 	window->getDeviceContext()->DrawIndexed(3, 0, 0);
 

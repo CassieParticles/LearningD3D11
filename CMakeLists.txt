@@ -19,6 +19,7 @@ list(APPEND Engine "engine/src/engine/D3DObjects/D3DPipeline.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/VertexLayout.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/CBufferObject.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/RasterizerState.cpp")
+list(APPEND Engine "engine/src/engine/D3DObjects/TextureSampler.cpp")
 
 list(APPEND Game "engine/src/game/gameScene.cpp")
 

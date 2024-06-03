@@ -1,9 +1,11 @@
 #pragma once
 #include <engine/BaseScene.h>
 #include <engine/Controller.h>
+
 #include <engine/D3DObjects/GameObject.h>
 #include <engine/D3DObjects/D3DPipeline.h>
 #include <engine/D3DObjects/RasterizerState.h>
+#include <engine/D3DObjects/TextureSampler.h>
 
 class TimeManager;
 
@@ -43,8 +45,9 @@ protected:
 	GameObject mesh;
 	D3DPipeline pipeline;
 	RasterizerState rasterizerState;
+	TextureSampler sampler;
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> SRV;
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler;
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> oSampler;
 };
