@@ -11,6 +11,7 @@ list(APPEND Engine "engine/src/engine/TimeManager.cpp")
 list(APPEND Engine "engine/src/engine/Input.cpp")
 list(APPEND Engine "engine/src/engine/Camera.cpp")
 list(APPEND Engine "engine/src/engine/Controller.cpp")
+list(APPEND Engine "engine/src/engine/AssetManager.cpp")
 
 list(APPEND Engine "engine/src/engine/D3DObjects/Mesh.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/GameObject.cpp")

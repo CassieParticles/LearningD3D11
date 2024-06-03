@@ -39,8 +39,6 @@ protected:
 		0,2,1
 	};
 
-	float* textureData;
-
 	Controller player;
 	GameObject mesh;
 	D3DPipeline pipeline;

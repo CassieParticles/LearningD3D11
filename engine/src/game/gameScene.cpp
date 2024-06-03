@@ -6,6 +6,8 @@
 #include <engine/D3DObjects/VertexLayout.h>
 #include <engine/Input.h>
 
+#include <engine/AssetManager.h>
+
 GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour),pipeline{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
 {
 	mesh.addVertexBuffer(vertices,false,sizeof(vertices),3 * sizeof(float),0);
@@ -32,52 +34,43 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	rasterizerState.use();
 	
 	Input::Instance()->enableCentredCursor();
+
+	ImageData* image = AssetManager::Instance()->getImage("assets/trans.png");
 	
 	D3D11_TEXTURE2D_DESC texDesc;
-	texDesc.Width = 16;
-	texDesc.Height = 16;
+	texDesc.Width = image->width;
+	texDesc.Height = image->height;
 	texDesc.MipLevels = 1;
 	texDesc.ArraySize = 1;
-	texDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	texDesc.SampleDesc.Count = 1;
 	texDesc.SampleDesc.Quality = 0;
 	texDesc.Usage = D3D11_USAGE_IMMUTABLE;
 	texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	texDesc.CPUAccessFlags = 0;
 	texDesc.MiscFlags = 0;
-	
-	
-	//Texture 2D data
-	textureData = new float[16 * 16 * 4];
-	for (int y = 0; y < 16; ++y)
-	{
-		for (int x = 0; x < 16; ++x)
-		{
-			int index = y * 16 + x;
 
-			textureData[index * 4 + 0] = x / 16.f;
-			textureData[index * 4 + 1] = y / 16.f;
-			textureData[index * 4 + 2] = index / 256.f;
-			textureData[index * 4 + 3] = 1.f;
-		}
-	}
+	D3D11_TEXTURE2D_DESC* texDescPtr = &texDesc;
+	
 	D3D11_SUBRESOURCE_DATA dat{};
-	dat.pSysMem = textureData;
-	dat.SysMemPitch = 16 * 4 * sizeof(float);
+	dat.pSysMem = (void*)image->data;
+	dat.SysMemPitch = image->width * 4 * sizeof(unsigned char);
 
-	HRESULT errorCode= window->getDevice()->CreateTexture2D(&texDesc, &dat, &texture);
+	D3D11_SUBRESOURCE_DATA* datPtr = &dat;
+
+	HRESULT errorCode= window->getDevice()->CreateTexture2D(texDescPtr, datPtr, &texture);
 
 	if (FAILED(errorCode))
 	{
 		std::cerr << "Failed to create texture\n";
 	}
 
-	delete[] textureData;
+	delete image;
 
 	//Create a SRV for the texture
 	
 	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc{};
-	viewDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	viewDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	viewDesc.Texture2D.MipLevels = 1;
 	viewDesc.Texture2D.MostDetailedMip = 0;

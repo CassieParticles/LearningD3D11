@@ -14,7 +14,7 @@ int main()
 	Input* input = Input::InitializeInput();
 	TimeManager timeManager{window};
 	SceneManager sceneManager;
-	
+
 
 	sceneManager.addScene(new GameScene("Main scene", window, DirectX::XMFLOAT3(.0f, .6f, .6f)));
 	
@@ -26,6 +26,8 @@ int main()
 		input->update();
 		sceneManager.update(&timeManager);
 		sceneManager.render(&timeManager);
+
+		
 
 		if (timeManager.DeltaTime() > 0.01)
 		{
