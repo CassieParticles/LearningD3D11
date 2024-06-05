@@ -6,6 +6,7 @@
 #include <engine/D3DObjects/D3DPipeline.h>
 #include <engine/D3DObjects/RasterizerState.h>
 #include <engine/D3DObjects/TextureSampler.h>
+#include <engine/D3DObjects/ImageTexture.h>
 
 class TimeManager;
 
@@ -46,6 +47,7 @@ protected:
 	D3DPipeline pipeline;
 	RasterizerState rasterizerState;
 	TextureSampler sampler;
+	ImageTexture imageNew;
 
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> SRV;

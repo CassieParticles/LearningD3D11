@@ -8,7 +8,7 @@
 
 #include <engine/AssetManager.h>
 
-GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour),pipeline{D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST}
+GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour), pipeline{ D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST }, imageNew{ AssetManager::Instance()->getImage("assets/trans.png") }
 {
 	mesh.addVertexBuffer(vertices,false,sizeof(vertices),3 * sizeof(float),0);
 	mesh.addVertexBuffer(colours, false, sizeof(colours), 3 * sizeof(float), 0);
@@ -36,51 +36,9 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	Input::Instance()->enableCentredCursor();
 
 	ImageData* image = AssetManager::Instance()->getImage("assets/trans.png");
-	
-	D3D11_TEXTURE2D_DESC texDesc;
-	texDesc.Width = image->width;
-	texDesc.Height = image->height;
-	texDesc.MipLevels = 1;
-	texDesc.ArraySize = 1;
-	texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	texDesc.SampleDesc.Count = 1;
-	texDesc.SampleDesc.Quality = 0;
-	texDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	texDesc.CPUAccessFlags = 0;
-	texDesc.MiscFlags = 0;
 
-	D3D11_TEXTURE2D_DESC* texDescPtr = &texDesc;
-	
-	D3D11_SUBRESOURCE_DATA dat{};
-	dat.pSysMem = (void*)image->data;
-	dat.SysMemPitch = image->width * 4 * sizeof(unsigned char);
-
-	D3D11_SUBRESOURCE_DATA* datPtr = &dat;
-
-	HRESULT errorCode= window->getDevice()->CreateTexture2D(texDescPtr, datPtr, &texture);
-
-	if (FAILED(errorCode))
-	{
-		std::cerr << "Failed to create texture\n";
-	}
-
-	delete image;
-
-	//Create a SRV for the texture
-	
-	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc{};
-	viewDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	viewDesc.Texture2D.MipLevels = 1;
-	viewDesc.Texture2D.MostDetailedMip = 0;
-
-	errorCode = window->getDevice()->CreateShaderResourceView(texture.Get(), &viewDesc, &SRV);
-
-	if (FAILED(errorCode))
-	{
-		std::cerr << "Failed to create SRV\n";
-	}
+	imageNew.setSamplerRegister(0);
+	imageNew.setStages(Shaders::PIXEL_SHADER);
 
 	sampler.setStages(Shaders::PIXEL_SHADER);
 	sampler.setSamplerRegister(0);
@@ -118,8 +76,7 @@ void GameScene::render(TimeManager* timeManager)
 	pipeline.bindShaders();
 	mesh.setBuffers();
 
-	window->getDeviceContext()->PSSetShaderResources(0, 1, SRV.GetAddressOf());
-	//window->getDeviceContext()->PSSetSamplers(0,1,oSampler.GetAddressOf());
+	imageNew.use();
 	sampler.use();
 
 	window->getDeviceContext()->DrawIndexed(3, 0, 0);

@@ -57,7 +57,7 @@ void TextureSampler::use()
 	}
 	if (pipelineStages | Shaders::HULL_SHADER)
 	{
-		window->getDeviceContext()->VSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
+		window->getDeviceContext()->HSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}
 	if (pipelineStages | Shaders::DOMAIN_SHADER)
 	{
