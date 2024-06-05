@@ -47,9 +47,5 @@ protected:
 	D3DPipeline pipeline;
 	RasterizerState rasterizerState;
 	TextureSampler sampler;
-	ImageTexture imageNew;
 
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> SRV;
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> oSampler;
 };

@@ -1,9 +1,11 @@
 #pragma once
 
-#include <engine/AssetManager.h>
+
 
 #include <wrl.h>
 #include <d3d11.h>
+
+struct ImageData;
 
 class ImageTexture
 {

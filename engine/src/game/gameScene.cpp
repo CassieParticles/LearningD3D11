@@ -8,7 +8,10 @@
 
 #include <engine/AssetManager.h>
 
-GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour), pipeline{ D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST }, imageNew{ AssetManager::Instance()->getImage("assets/trans.png") }
+//TODO:
+//Reduce repeat code with objects that are bound to stages of pipeline (composition probably better)
+
+GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFLOAT3 bgColour) :BaseScene(sceneName, window, bgColour), pipeline{ D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST }
 {
 	mesh.addVertexBuffer(vertices,false,sizeof(vertices),3 * sizeof(float),0);
 	mesh.addVertexBuffer(colours, false, sizeof(colours), 3 * sizeof(float), 0);
@@ -35,10 +38,10 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	
 	Input::Instance()->enableCentredCursor();
 
-	ImageData* image = AssetManager::Instance()->getImage("assets/trans.png");
+	ImageTexture* image = AssetManager::Instance()->getTexture("assets/trans.png");
 
-	imageNew.setSamplerRegister(0);
-	imageNew.setStages(Shaders::PIXEL_SHADER);
+	image->setStages(Shaders::PIXEL_SHADER);
+	image->setSamplerRegister(0);
 
 	sampler.setStages(Shaders::PIXEL_SHADER);
 	sampler.setSamplerRegister(0);
@@ -76,7 +79,7 @@ void GameScene::render(TimeManager* timeManager)
 	pipeline.bindShaders();
 	mesh.setBuffers();
 
-	imageNew.use();
+	AssetManager::Instance()->getTexture("assets/trans.png")->use();
 	sampler.use();
 
 	window->getDeviceContext()->DrawIndexed(3, 0, 0);

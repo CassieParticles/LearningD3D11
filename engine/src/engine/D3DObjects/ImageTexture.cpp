@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <engine/AssetManager.h>
+
 #include <engine/Window.h>
 #include <engine/D3DObjects/RenderingStages.h>
 

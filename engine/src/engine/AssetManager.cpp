@@ -3,6 +3,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include <engine/D3DObjects/ImageTexture.h>
+
 AssetManager* AssetManager::instance = nullptr;
 
 AssetManager* AssetManager::Instance()
@@ -14,18 +16,18 @@ AssetManager* AssetManager::Instance()
 	return instance;
 }
 
-ImageData* AssetManager::getImage(const std::string& imagePath)
+ImageTexture* AssetManager::getTexture(const std::string& imagePath)
 {
-	ImageData* image = imageMap[imagePath];
-
-	//Image hasn't been loaded before
+	ImageTexture* image = textureMap[imagePath];
 	if (!image)
 	{
-		image = imageMap[imagePath] = loadImage(imagePath);
+		image = textureMap[imagePath] = new ImageTexture(loadImageData(imagePath));
+		loadedTextures.push_back(imagePath);
 	}
 
 	return image;
 }
+
 
 AssetManager::AssetManager()
 {
@@ -33,9 +35,13 @@ AssetManager::AssetManager()
 
 AssetManager::~AssetManager()
 {
+	for (auto it = loadedTextures.begin(); it != loadedTextures.end(); it++)
+	{
+		delete textureMap[*it];
+	}
 }
 
-ImageData* AssetManager::loadImage(const std::string& imagePath)
+ImageData* AssetManager::loadImageData(const std::string& imagePath)
 {
 	ImageData* data = new ImageData;
 	

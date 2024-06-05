@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 
+class ImageTexture;
+
 struct ImageData
 {
 	~ImageData() 
@@ -20,14 +22,15 @@ public:
 
 	static AssetManager* Instance();
 
-	ImageData* getImage(const std::string& imagePath);
+	ImageTexture* getTexture(const std::string& imagePath);
 protected:
 	static AssetManager* instance;
 
 	AssetManager();
 	~AssetManager();
 
-	ImageData* loadImage(const std::string& imagePath);
+	ImageData* loadImageData(const std::string& imagePath);
 
-	std::unordered_map<std::string, ImageData*> imageMap;
+	std::unordered_map<std::string, ImageTexture*> textureMap;
+	std::vector<std::string> loadedTextures;
 };
