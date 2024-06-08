@@ -59,6 +59,10 @@ void Controller::update(TimeManager* timeManager)
 	{
 		translation = DirectX::XMVectorAdd(translation, { 0,-1,0 });
 	}
+	if (input->getKeyDown(GLFW_KEY_O))
+	{
+		rotation = { 0,0,0 };
+	}
 	float deltaTime = timeManager->DeltaTime();
 
 	translation = DirectX::XMVectorScale(translation, deltaTime * 3.f);

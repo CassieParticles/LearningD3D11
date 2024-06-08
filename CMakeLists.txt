@@ -21,6 +21,7 @@ list(APPEND Engine "engine/src/engine/D3DObjects/CBufferObject.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/RasterizerState.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/TextureSampler.cpp")
 list(APPEND Engine "engine/src/engine/D3DObjects/ImageTexture.cpp")
+list(APPEND Engine "engine/src/engine/D3DObjects/PipelineBinding.cpp")
 
 list(APPEND Game "engine/src/game/gameScene.cpp")
 

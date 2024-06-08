@@ -5,7 +5,6 @@
 #include <engine/AssetManager.h>
 
 #include <engine/Window.h>
-#include <engine/D3DObjects/RenderingStages.h>
 
 ImageTexture::ImageTexture(ImageData* imageData):imageData{imageData}
 {
@@ -54,23 +53,23 @@ ImageTexture::~ImageTexture()
 void ImageTexture::use()
 {
 	Window* window = Window::Instance();
-	if (pipelineStages | Shaders::VERTEX_SHADER)
+	if (pipelineStages & Shaders::VERTEX_SHADER)
 	{
 		window->getDeviceContext()->VSSetShaderResources(samplerRegister, 1, SRV.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::HULL_SHADER)
+	if (pipelineStages & Shaders::HULL_SHADER)
 	{
 		window->getDeviceContext()->HSSetShaderResources(samplerRegister, 1, SRV.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::DOMAIN_SHADER)
+	if (pipelineStages & Shaders::DOMAIN_SHADER)
 	{
 		window->getDeviceContext()->DSSetShaderResources(samplerRegister, 1, SRV.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::GEOMETRY_SHADER)
+	if (pipelineStages & Shaders::GEOMETRY_SHADER)
 	{
 		window->getDeviceContext()->GSSetShaderResources(samplerRegister, 1, SRV.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::PIXEL_SHADER)
+	if (pipelineStages & Shaders::PIXEL_SHADER)
 	{
 		window->getDeviceContext()->PSSetShaderResources(samplerRegister, 1, SRV.GetAddressOf());
 	}

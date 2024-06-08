@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include <engine/Window.h>
-#include <engine/D3DObjects/RenderingStages.h>
 
 TextureSampler::TextureSampler()
 {
@@ -51,23 +50,23 @@ bool TextureSampler::createTextureSampler()
 void TextureSampler::use()
 {
 	Window* window = Window::Instance();
-	if (pipelineStages | Shaders::VERTEX_SHADER)
+	if (pipelineStages & Shaders::VERTEX_SHADER)
 	{
 		window->getDeviceContext()->VSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::HULL_SHADER)
+	if (pipelineStages & Shaders::HULL_SHADER)
 	{
 		window->getDeviceContext()->HSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::DOMAIN_SHADER)
+	if (pipelineStages & Shaders::DOMAIN_SHADER)
 	{
 		window->getDeviceContext()->DSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::GEOMETRY_SHADER)
+	if (pipelineStages & Shaders::GEOMETRY_SHADER)
 	{
 		window->getDeviceContext()->GSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}
-	if (pipelineStages | Shaders::PIXEL_SHADER)
+	if (pipelineStages & Shaders::PIXEL_SHADER)
 	{
 		window->getDeviceContext()->PSSetSamplers(samplerRegister, 1, oSampler.GetAddressOf());
 	}

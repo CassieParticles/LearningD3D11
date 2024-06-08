@@ -3,6 +3,7 @@
 #include <wrl.h>
 #include <d3d11.h>
 #include <DirectXMath.h>
+#include <engine/D3DObjects/PipelineBinding.h>
 
 class TextureSampler
 {

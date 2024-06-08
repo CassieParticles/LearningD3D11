@@ -56,23 +56,23 @@ void CBufferObject::addBuffer(void* data, bool dynamic, int size, int shaders, u
 void CBufferObject::bindBuffer()
 {
 	Window* window = Window::Instance();
-	if (shadersBoundTo | Shaders::VERTEX_SHADER)
+	if (shadersBoundTo & Shaders::VERTEX_SHADER)
 	{
 		window->getDeviceContext()->VSSetConstantBuffers(shaderRegister, 1, constantBuffer.GetAddressOf());
 	}
-	if (shadersBoundTo | Shaders::HULL_SHADER)
+	if (shadersBoundTo & Shaders::HULL_SHADER)
 	{
 		window->getDeviceContext()->HSSetConstantBuffers(shaderRegister, 1, constantBuffer.GetAddressOf());
 	}
-	if (shadersBoundTo | Shaders::DOMAIN_SHADER)
+	if (shadersBoundTo & Shaders::DOMAIN_SHADER)
 	{
 		window->getDeviceContext()->DSSetConstantBuffers(shaderRegister, 1, constantBuffer.GetAddressOf());
 	}
-	if (shadersBoundTo | Shaders::GEOMETRY_SHADER)
+	if (shadersBoundTo & Shaders::GEOMETRY_SHADER)
 	{
 		window->getDeviceContext()->GSSetConstantBuffers(shaderRegister, 1, constantBuffer.GetAddressOf());
 	}
-	if (shadersBoundTo | Shaders::PIXEL_SHADER)
+	if (shadersBoundTo & Shaders::PIXEL_SHADER)
 	{
 		window->getDeviceContext()->PSSetConstantBuffers(shaderRegister, 1, constantBuffer.GetAddressOf());
 	}

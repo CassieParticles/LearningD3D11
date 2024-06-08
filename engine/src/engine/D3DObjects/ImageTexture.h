@@ -4,6 +4,7 @@
 
 #include <wrl.h>
 #include <d3d11.h>
+#include <engine/D3DObjects/PipelineBinding.h>
 
 struct ImageData;
 

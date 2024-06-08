@@ -5,6 +5,8 @@ struct PSInput
 {
     float4 position : SV_Position;
     float2 uv : UV0;
+    
+    float vertexBrightness : BRIGHTNESS;
 };
 
 
@@ -17,6 +19,6 @@ struct PSOutput
 PSOutput Main(PSInput input)
 {
     float3 colour = ColourTexture.Sample(linearsampler, input.uv).xyz;
-    PSOutput output = { float4(colour, 1) };
+    PSOutput output = { float4(mul(colour,input.vertexBrightness), 1.0) };
     return output;
 }

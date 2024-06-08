@@ -42,10 +42,19 @@ protected:
 		0,2,1
 	};
 
+	float brightness[3] =
+	{
+		0.8f,
+		0.6f,
+		0.2f
+	};
+
 	Controller player;
 	GameObject mesh;
 	D3DPipeline pipeline;
 	RasterizerState rasterizerState;
 	TextureSampler sampler;
 
+	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> srv;
 };

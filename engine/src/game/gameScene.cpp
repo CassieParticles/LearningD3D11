@@ -15,10 +15,10 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 {
 	mesh.addVertexBuffer(vertices,false,sizeof(vertices),3 * sizeof(float),0);
 	mesh.addVertexBuffer(colours, false, sizeof(colours), 3 * sizeof(float), 0);
+	mesh.addVertexBuffer(indices, false, sizeof(indices), sizeof(int), 0);
 
 	mesh.addIndexBuffer(indices, false, sizeof(indices), 0);
 
-	
 	pipeline.addVertexShader(L"shaders/vertex.hlsl");
 	pipeline.addFragmentShader(L"shaders/fragment.hlsl");
 
@@ -26,6 +26,7 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 
 	layout.addVertexComponent("POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0);
 	layout.addVertexComponent("COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_VERTEX_DATA, 0);
+	layout.addVertexComponent("SV_VertexID", 0, DXGI_FORMAT_R32_UINT, 2, 0, D3D11_INPUT_PER_VERTEX_DATA, 0);
 
 	pipeline.addLayoutDescription(layout);
 
@@ -47,6 +48,36 @@ GameScene::GameScene(const std::string& sceneName, Window* window, DirectX::XMFL
 	sampler.setSamplerRegister(0);
 
 	sampler.createTextureSampler();
+
+	D3D11_BUFFER_DESC bufferDesc;
+
+	bufferDesc.ByteWidth = sizeof(float) * 3;
+	bufferDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+	bufferDesc.StructureByteStride = sizeof(float);
+	bufferDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	bufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	bufferDesc.CPUAccessFlags = 0;
+	
+	D3D11_SUBRESOURCE_DATA dat{};
+	dat.pSysMem = brightness;
+
+	HRESULT errorCode = window->getDevice()->CreateBuffer(&bufferDesc, &dat, &buffer);
+	if (FAILED(errorCode))
+	{
+		std::cerr << "Failed to create buffer\n";
+	}
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc;
+	viewDesc.Format = DXGI_FORMAT_UNKNOWN;
+	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_BUFFER;
+	viewDesc.Buffer.FirstElement = 0;
+	viewDesc.Buffer.NumElements = 3;
+
+	errorCode = window->getDevice()->CreateShaderResourceView(buffer.Get(), &viewDesc, &srv);
+	if (FAILED(errorCode))
+	{
+		std::cerr << "Failed to create SRV\n";
+	}
 }
 
 GameScene::~GameScene()
@@ -78,6 +109,7 @@ void GameScene::render(TimeManager* timeManager)
 
 	pipeline.bindShaders();
 	mesh.setBuffers();
+	window->getDeviceContext()->VSSetShaderResources(0, 1, srv.GetAddressOf());
 
 	AssetManager::Instance()->getTexture("assets/trans.png")->use();
 	sampler.use();
